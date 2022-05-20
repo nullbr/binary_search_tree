@@ -46,6 +46,7 @@ class Tree
 
   # level_order method which accepts a block.
   # This method should traverse the tree in breadth-first level order and yield each node to the provided block
+  # return an array of level order values
   def level_order_interate(node = @root, queue = [])
     queue << node
     array = []
@@ -57,7 +58,17 @@ class Tree
       queue += node.children
       queue.shift
     end
-    array
+    array unless array.empty?
+  end
+
+  def level_order_recursive(queue = [@root], array = [], &block)
+    return array if queue.empty?
+
+    node = queue[0]
+    block_given? ? (yield node) : array << node.data
+    queue += node.children
+    queue.shift
+    level_order_recursive(queue, array, &block)
   end
 
   private

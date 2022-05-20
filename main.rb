@@ -34,5 +34,10 @@ puts "\nDelete 9"
 bst.delete(9)
 bst.pretty_print
 
+puts "\nLevel order traversal printing each node and than printing all nodes in an array"
 bst.level_order_interate { |node| puts node.data }
 p bst.level_order_interate
+
+puts "\nSame using recursion"
+bst.level_order_recursive { |node| puts node.data }
+p bst.level_order_recursive
