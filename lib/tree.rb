@@ -9,9 +9,9 @@ class Tree
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
-    pretty_print(node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_child
+    pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
-    pretty_print(node.left_child, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left_child
+    pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
   end
 
   # find a node, will help delete node
@@ -20,34 +20,31 @@ class Tree
 
     return current_node if current_node.data == val
 
-    current_node.data < val ? find(val, current_node.right_child) : find(val, current_node.left_child)
+    current_node.data < val ? find(val, current_node.right) : find(val, current_node.left)
   end
 
   # accepts a value to insert in the tree
   def insert(value, node = @root)
     if value < node.data
-      node.left_child.nil? ? node.left_child = Node.new(value) : insert(value, node.left_child)
+      node.left.nil? ? node.left = Node.new(value) : insert(value, node.left)
     elsif value > node.data
-      node.right_child.nil? ? node.right_child = Node.new(value) : insert(value, node.right_child)
+      node.right.nil? ? node.right = Node.new(value) : insert(value, node.right)
     end
   end
 
   # accepts a value to delete from the tree
-  def delete(value, node = @root)
-    return if node.nil?
+  def delete(value)
+    val_node = find(value)
+    return if val_node.nil?
 
-    if node.data == value
-      if node.right_child.nil? && node.left_child.nil?
-        node = nil
-        nil
-      elsif node.right_child.nil? || node.left_child.nil?
-        node = node.right_child.nil? ? node.left_child : node.right_child
-        nil
-      end
+    if val_node.children.size < 2
+      delete_node_single_child(val_node)
+    else
+      delete_node_with_two_children(val_node)
     end
   end
 
-  private
+  # private
 
   def merge_sort(arr, result = [])
     return arr if arr.length < 2
@@ -78,9 +75,35 @@ class Tree
     mid_array = array.size / 2
     root = Node.new(array[mid_array])
 
-    root.left_child = build_tree(array[0..mid_array - 1])
-    root.right_child = build_tree(array[mid_array + 1..array.size])
+    root.left = build_tree(array[0..mid_array - 1])
+    root.right = build_tree(array[mid_array + 1..array.size])
 
     root
+  end
+
+  def delete_node_single_child(val_node, node = @root)
+    return if val_node.nil?
+
+    if val_node.data < node.data
+      node.left == val_node ? node.left = node.left.children[0] : delete_node_single_child(val_node, node.left)
+    elsif val_node.data > node.data
+      node.right == val_node ? node.right = node.right.children[0] : delete_node_single_child(val_node, node.right)
+    end
+  end
+
+  def delete_node_with_two_children(node)
+    successor = find_successor(node)
+    delete_node_single_child(successor)
+    node.data = successor.data
+  end
+
+  def find_successor(node, count = 0)
+    return node if node.left.nil?
+
+    if count.zero?
+      find_successor(node.right, count + 1)
+    else
+      find_successor(node.left, count)
+    end
   end
 end
