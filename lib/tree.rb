@@ -106,6 +106,20 @@ class Tree
     block_given? ? (yield node) : array << node.data
   end
 
+  # height method which accepts a node and returns its height. 
+  # Height is defined as the number of edges in longest path from a given node to a leaf node
+  def height(node, current_node = @root, count = 0)
+    return if current_node.nil?
+
+    return count if current_node == node
+
+    if current_node.data < node.data
+      height(node, current_node.right, count + 1)
+    else
+      height(node, current_node.left, count + 1)
+    end
+  end
+
   private
 
   def merge_sort(arr, result = [])

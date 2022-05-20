@@ -56,3 +56,7 @@ bst.pretty_print
 puts "\nPostorder traversal"
 bst.postorder { |node| puts node.data }
 p bst.postorder
+
+puts "\nGet the height of a given node"
+puts bst.height(bst.find(4))
+puts bst.height(bst.find(20))
