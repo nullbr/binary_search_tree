@@ -62,13 +62,42 @@ class Tree
   end
 
   def level_order_recursive(queue = [@root], array = [], &block)
-    return array if queue.empty?
+    if queue.empty?
+      array.empty? ? return : (return array)
+    end
 
     node = queue[0]
     block_given? ? (yield node) : array << node.data
     queue += node.children
     queue.shift
     level_order_recursive(queue, array, &block)
+  end
+
+  # inorder, preorder, and postorder methods that accepts a block. 
+  # Each method should traverse the tree in their respective depth-first order and yield each node to the provided block. 
+  # The methods should return an array of values if no block is given.
+  def inorder(node = @root, &block)
+    return if node.nil?
+
+    inorder(node.left, &block)
+    yield node
+    inorder(node.right, &block)
+  end
+  
+  def preorder(node = @root, &block)
+    return if node.nil?
+
+    yield node
+    preorder(node.left, &block)
+    preorder(node.right, &block)
+  end
+
+  def postorder(node = @root, &block)
+    return if node.nil?
+
+    postorder(node.left, &block)
+    postorder(node.right, &block)
+    yield node
   end
 
   private
