@@ -44,7 +44,23 @@ class Tree
     end
   end
 
-  # private
+  # level_order method which accepts a block.
+  # This method should traverse the tree in breadth-first level order and yield each node to the provided block
+  def level_order_interate(node = @root, queue = [])
+    queue << node
+    array = []
+
+    until queue.empty?
+      node = queue[0]
+      block_given? ? (yield node) : array << node.data
+
+      queue += node.children
+      queue.shift
+    end
+    array
+  end
+
+  private
 
   def merge_sort(arr, result = [])
     return arr if arr.length < 2

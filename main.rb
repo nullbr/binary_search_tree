@@ -9,12 +9,10 @@ bst.pretty_print
 bst = Tree.new([2, 5, 4, 3, 6, 7, 87, 7, 9])
 bst.pretty_print
 
-=begin
 puts "\nFind a node in the tree"
 puts bst.find(4)
 puts bst.find(87)
 puts bst.find(2) ? true : false
-=end
 
 puts "\nInsert values in the tree"
 bst.insert(8)
@@ -24,7 +22,6 @@ bst.insert(1)
 bst.insert(11)
 bst.insert(20)
 bst.pretty_print
-
 
 puts "\nDelete nodes from tree"
 puts "\nDelete 3"
@@ -36,3 +33,6 @@ bst.pretty_print
 puts "\nDelete 9"
 bst.delete(9)
 bst.pretty_print
+
+bst.level_order_interate { |node| puts node.data }
+p bst.level_order_interate
