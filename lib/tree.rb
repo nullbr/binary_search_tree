@@ -73,31 +73,37 @@ class Tree
     level_order_recursive(queue, array, &block)
   end
 
-  # inorder, preorder, and postorder methods that accepts a block. 
-  # Each method should traverse the tree in their respective depth-first order and yield each node to the provided block. 
+  # inorder, preorder, and postorder methods that accepts a block.
+  # Each method should traverse the tree in their respective depth-first order and yield each node to the provided block.
   # The methods should return an array of values if no block is given.
-  def inorder(node = @root, &block)
-    return if node.nil?
+  def inorder(node = @root, array = [], &block)
+    if node.nil?
+      array.empty? ? return : (return array)
+    end
 
-    inorder(node.left, &block)
-    yield node
-    inorder(node.right, &block)
-  end
-  
-  def preorder(node = @root, &block)
-    return if node.nil?
-
-    yield node
-    preorder(node.left, &block)
-    preorder(node.right, &block)
+    inorder(node.left, array, &block)
+    block_given? ? (yield node) : array << node.data
+    inorder(node.right, array, &block)
   end
 
-  def postorder(node = @root, &block)
-    return if node.nil?
+  def preorder(node = @root, array = [], &block)
+    if node.nil?
+      array.empty? ? return : (return array)
+    end
 
-    postorder(node.left, &block)
-    postorder(node.right, &block)
-    yield node
+    block_given? ? (yield node) : array << node.data
+    preorder(node.left, array, &block)
+    preorder(node.right, array, &block)
+  end
+
+  def postorder(node = @root, array = [], &block)
+    if node.nil?
+      array.empty? ? return : (return array)
+    end
+
+    postorder(node.left, array, &block)
+    postorder(node.right, array, &block)
+    block_given? ? (yield node) : array << node.data
   end
 
   private

@@ -45,11 +45,14 @@ p bst.level_order_recursive
 bst.pretty_print
 puts "\nInorder traversal"
 bst.inorder { |node| puts node.data }
+p bst.inorder
 
 bst.pretty_print
 puts "\nPreorder traversal"
 bst.preorder { |node| puts node.data }
+p bst.preorder
 
 bst.pretty_print
 puts "\nPostorder traversal"
 bst.postorder { |node| puts node.data }
+p bst.postorder
