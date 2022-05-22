@@ -109,7 +109,17 @@ class Tree
 
   # height method which accepts a node and returns its height. 
   # Height is defined as the number of edges in longest path from a given node to a leaf node
-  def height(node, current_node = @root, count = 0)
+  def height(node, current_node = @root)
+    return if current_node.nil?
+
+    return current_node if current_node == 
+
+    current_node.data < val ? find(val, current_node.right) : find(val, current_node.left)
+  end
+  
+  # depth method which accepts a node and returns its depth. 
+  # Depth is defined as the number of edges in path from a given node to the tree’s root node.
+  def depth(node, current_node = @root, count = 0)
     return if node.nil?
 
     return count if current_node == node
