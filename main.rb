@@ -58,7 +58,11 @@ bst.postorder { |node| puts node.data }
 p bst.postorder
 
 puts "\nGet the height of a given node"
-puts bst.height(bst.find(4))
-puts bst.height(bst.find(20))
+puts bst.height(bst.find(4)) # 1
+puts bst.height(bst.find(10)) # 3
+puts bst.height(bst.find(6)) # 4
 
-p bst.root
+puts "\nGet the depth of a given node"
+puts bst.depth(bst.find(4)) # 1
+puts bst.depth(bst.find(10)) # 3
+puts bst.depth(bst.find(6)) # 4
