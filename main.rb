@@ -66,3 +66,7 @@ puts "\nGet the depth of a given node"
 puts bst.depth(bst.find(7)) # 2
 puts bst.depth(bst.find(12)) # 4
 puts bst.depth(bst.find(6)) # 0
+
+p bst.balanced?
+bst.delete(12)
+p bst.balanced?

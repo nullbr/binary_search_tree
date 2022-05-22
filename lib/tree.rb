@@ -138,6 +138,23 @@ class Tree
     end
   end
 
+  # balanced? method which checks if the tree is balanced. 
+  # A balanced tree is one where the difference between heights of left subtree and right subtree of every node is not more than 1
+  def balanced?(node = @root)
+    return if node.nil?
+
+    return true if !node.children
+
+    children = node.children
+    if children.size == 2
+      diff = (height(children[0]) - height(children[1]))
+      return false unless diff.between?(-1, 1)
+    end
+
+    balanced?(node.right)
+    balanced?(node.left)
+  end
+
   private
 
   def merge_sort(arr, result = [])
