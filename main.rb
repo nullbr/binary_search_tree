@@ -63,6 +63,6 @@ puts bst.height(bst.find(10)) # 3
 puts bst.height(bst.find(6)) # 4
 
 puts "\nGet the depth of a given node"
-puts bst.depth(bst.find(4)) # 1
-puts bst.depth(bst.find(10)) # 3
-puts bst.depth(bst.find(6)) # 4
+puts bst.depth(bst.find(7)) # 2
+puts bst.depth(bst.find(12)) # 4
+puts bst.depth(bst.find(6)) # 0
