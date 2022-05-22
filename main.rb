@@ -20,7 +20,7 @@ bst.insert(9)
 bst.insert(10)
 bst.insert(1)
 bst.insert(11)
-bst.insert(20)
+bst.insert(12)
 bst.pretty_print
 
 puts "\nDelete nodes from tree"
@@ -60,3 +60,5 @@ p bst.postorder
 puts "\nGet the height of a given node"
 puts bst.height(bst.find(4))
 puts bst.height(bst.find(20))
+
+p bst.root

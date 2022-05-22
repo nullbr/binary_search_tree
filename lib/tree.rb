@@ -3,6 +3,7 @@ require_relative 'node'
 # Build a Tree class which accepts an array when initialized.
 # The Tree class should have a root attribute which uses the return value of #build_tree which you’ll write next.
 class Tree
+  attr_accessor :root
   def initialize(array)
     @array = merge_sort(array)
     @root = build_tree(@array)
@@ -109,7 +110,7 @@ class Tree
   # height method which accepts a node and returns its height. 
   # Height is defined as the number of edges in longest path from a given node to a leaf node
   def height(node, current_node = @root, count = 0)
-    return if current_node.nil?
+    return if node.nil?
 
     return count if current_node == node
 
