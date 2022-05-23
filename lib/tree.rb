@@ -6,7 +6,7 @@ class Tree
   attr_accessor :root
   def initialize(array)
     @array = merge_sort(array)
-    @root = build_tree(@array)
+    @root = build_tree
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
@@ -141,9 +141,7 @@ class Tree
   # balanced? method which checks if the tree is balanced. 
   # A balanced tree is one where the difference between heights of left subtree and right subtree of every node is not more than 1
   def balanced?(node = @root)
-    return if node.nil?
-
-    return true if !node.children
+    return true if node.nil?
 
     children = node.children
     if children.size == 2
@@ -153,6 +151,13 @@ class Tree
 
     balanced?(node.right)
     balanced?(node.left)
+  end
+
+  # rebalance method which rebalances an unbalanced tree. 
+  # Tip: You’ll want to use a traversal method to provide a new array to the #build_tree method.
+  def rebalance
+    @array = inorder
+    build_tree
   end
 
   private
@@ -178,7 +183,7 @@ class Tree
     result + left_arr + right_arr
   end
 
-  def build_tree(array)
+  def build_tree(array = @array)
     return if array.empty?
 
     return Node.new(array[0]) if array.size == 1
@@ -189,7 +194,7 @@ class Tree
     root.left = build_tree(array[0..mid_array - 1])
     root.right = build_tree(array[mid_array + 1..array.size])
 
-    root
+    @root = root
   end
 
   def delete_node_single_child(val_node, node = @root)

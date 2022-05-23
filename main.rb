@@ -3,6 +3,61 @@ require_relative 'lib/node'
 
 # testing binary seach tree class
 
+puts "\n\n1- Create a binary search tree from an array of random numbers (Array.new(15) { rand(1..100) })"
+bst = Tree.new(Array.new(15) { rand(1..100) })
+bst.pretty_print
+
+puts "\n2- Confirm that the tree is balanced by calling #balanced?"
+puts bst.balanced?
+
+puts "\n3- Print out all elements in level, pre, post, and in order"
+puts "\n* Level order traversal printing each node and than printing all nodes in an array"
+p bst.level_order_interate
+
+puts "\n* Same using recursion"
+p bst.level_order_recursive
+
+puts "\n* Inorder traversal"
+p bst.inorder
+
+puts "\n* Preorder traversal"
+p bst.preorder
+bst.pretty_print
+
+puts "\n4- Unbalance the tree by adding several numbers > 100"
+bst.insert(rand(100..150))
+bst.insert(rand(100..150))
+bst.insert(rand(100..150))
+bst.insert(rand(100..150))
+bst.insert(rand(100..150))
+bst.insert(rand(100..150))
+bst.pretty_print
+
+puts "\n5- Confirm that the tree is unbalanced by calling #balanced?"
+puts bst.balanced?
+
+puts "\n6- Balance the tree by calling #rebalance"
+bst.rebalance
+bst.pretty_print
+
+puts "\n7- Confirm that the tree is balanced by calling #balanced?"
+puts bst.balanced?
+
+puts "\n8- Print out all elements in level, pre, post, and in order"
+puts "\n* Level order traversal printing each node and than printing all nodes in an array"
+p bst.level_order_interate
+
+puts "\n* Same using recursion"
+p bst.level_order_recursive
+
+puts "\n* Inorder traversal"
+p bst.inorder
+
+puts "\n* Preorder traversal"
+p bst.preorder
+bst.pretty_print
+
+=begin
 bst = Tree.new([1, 2, 3, 4, 5, 6, 7])
 bst.pretty_print
 
@@ -67,6 +122,20 @@ puts bst.depth(bst.find(7)) # 2
 puts bst.depth(bst.find(12)) # 4
 puts bst.depth(bst.find(6)) # 0
 
+puts "\nCheck if tree is balanced"
 p bst.balanced?
+bst.pretty_print
 bst.delete(12)
 p bst.balanced?
+bst.pretty_print
+
+puts "\nRebalance array"
+bst.insert(40)
+bst.insert(50)
+bst.insert(19)
+bst.insert(9)
+bst.insert(1)
+bst.insert(3)
+bst.rebalance
+=end
+
