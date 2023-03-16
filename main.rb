@@ -139,3 +139,9 @@ bst.insert(3)
 bst.rebalance
 =end
 
+puts 'Take the sum of all left leafs of the tree'
+puts 'The tree: '
+bst = Tree.new(Array.new(15) { rand(1..20) })
+bst.pretty_print
+# bst.inorder { |node| p node.data unless node.right || node.left }
+p bst.sum_left_leafs

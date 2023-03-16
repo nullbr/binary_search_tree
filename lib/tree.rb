@@ -123,7 +123,7 @@ class Tree
     end
     height(first_node, queue, count, root)
   end
-  
+
   # depth method which accepts a node and returns its depth. 
   # Depth is defined as the number of edges in path from a given node to the tree’s root node.
   def depth(node, current_node = @root, count = 0)
@@ -158,6 +158,19 @@ class Tree
   def rebalance
     @array = inorder
     build_tree
+  end
+
+  # Take the sum of all left leafs of the tree
+  def sum_left_leafs(queue = [@root], array = [], &block)
+    if queue.empty?
+      return array.sum
+    end
+
+    node = queue[0]
+    array << node.left.data if is_leaf(node.left)
+    queue += node.children
+    queue.shift
+    sum_left_leafs(queue, array, &block)
   end
 
   private
@@ -220,6 +233,17 @@ class Tree
       find_successor(node.right, count + 1)
     else
       find_successor(node.left, count)
+    end
+  end
+
+
+  def is_leaf(node)
+    if node.nil?
+      false
+    elsif !node.right && !node.left
+      true
+    else
+      false
     end
   end
 end
